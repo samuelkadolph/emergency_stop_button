@@ -2,6 +2,7 @@ require "optparse"
 
 device = path = nil
 down = up = nil
+verbose = false
 
 op = OptionParser.new do |op|
   op.banner << " sha"
@@ -11,6 +12,8 @@ op = OptionParser.new do |op|
 
   op.on("-D", "--down command", String, "Command to run when the button is pressed") { |s| down = s }
   op.on("-U", "--up command", String, "Command to run when the button is released") { |s| up = s }
+
+  op.on("-v", "--[no-]verbose", "Be verbose") { |b| verbose = b }
 
   op.on("-h", "--help", "Print this message and exit") do
     $stderr.puts(op)
@@ -40,8 +43,10 @@ loop do
 
   case state
   when "DOWN"
+    puts "down" if verbose
     system down if down
   when "UP"
+    puts "up" if verbose
     system up if up
   end
 end
