@@ -19,7 +19,7 @@ void loop() {
     buffer += b;
 
     if (b == '\n') {
-      if (buffer == "READ\n") lastSent = 0;
+      if (buffer == "READ\n") lastSent = -1;
 
       buffer = "";
     }
